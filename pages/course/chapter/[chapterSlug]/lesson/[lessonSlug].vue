@@ -25,10 +25,12 @@
       :videoId="lesson.videoId"
     />
     <p>{{ lesson.text }}</p>
+
     <LessonCompleteButton
       :model-value="isLessonComplete"
       @update:model-value="toggleComplete"
     />
+
   </div>
 </template>
 
@@ -55,7 +57,7 @@ useHead({
   title,
 });
 
-const progress = useState('progress', () => {
+const progress = useLocalStorage('progress', () => {
   return [];
 });
 
@@ -66,7 +68,7 @@ const isLessonComplete = computed(() => {
 
   if (
     !progress.value[chapter.value.number - 1][
-      lesson.value.number - 1
+    lesson.value.number - 1
     ]
   ) {
     return false;
