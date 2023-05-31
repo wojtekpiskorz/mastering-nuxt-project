@@ -4,7 +4,7 @@
       <h1>
         <span class="font-medium">
           Course:
-          <span class="font-bold">{{ title }}</span>
+          <span class="font-bold">{{ course.title }}</span>
         </span>
       </h1>
     </div>
@@ -14,7 +14,7 @@
         <h3>Chapters</h3>
         <div
           class="space-y-1 mb-4 flex flex-col"
-          v-for="chapter in chapters"
+          v-for="chapter in course.chapters"
           :key="chapter.slug"
         >
           <h4>{{ chapter.title }}</h4>
@@ -57,11 +57,12 @@
 
 <script setup>
 
-const { chapters, title } = useCourse();
+const course = await useCourse();
+const firstLesson = await useFirstLesson();
 
 
 async function handleError(error) {
-  await navigateTo('/course');
+  await navigateTo(firstLesson.path);
   error.value = null;
 }
 
